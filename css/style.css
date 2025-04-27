@@ -22,7 +22,6 @@ body {
 
 /* Header (Sticky Navigation Bar) */
 header {
-  position: sticky;
   top: 0;
   width: 100%;
   background-color: #fff;
