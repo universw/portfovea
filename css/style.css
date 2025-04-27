@@ -21,12 +21,78 @@ body {
 }
 
 /* Header (Sticky Navigation Bar) */
+/* Header (Sticky Navigation Bar) */
 header {
+  position: sticky;
   top: 0;
   width: 100%;
   background-color: #fff;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 60px; /* Adjust header height */
+  padding: 0 20px;
+}
+
+/* Navigation Bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 25px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1em;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #007BFF; /* Blue on hover */
+}
+
+/* Body settings (Ensure the header doesn’t overlap) */
+body {
+  margin-top: 60px; /* Offset to account for the fixed header */
+}
+
+/* Main content area */
+main {
+  padding: 20px;
+  margin-top: 20px; /* Additional margin to avoid overlap */
+}
+
+/* Ensure content is accessible */
+section {
+  padding: 80px 20px; /* More padding for better spacing */
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+  border-bottom: 5px solid #eee;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+section h2 {
+  font-size: 2.8em;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+section p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 /* Navigation Bar */
