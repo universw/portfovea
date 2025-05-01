@@ -1,53 +1,59 @@
-// Your web app's Firebase configuration
+// Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Reference to the database
-const db = firebase.database();
-const chatRef = db.ref('messages');
-
-// Get elements
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input');
-const chatMessages = document.getElementById('chat-messages');
-
-// Listen for submit
-chatForm.addEventListener('submit', (e) => {
+    apiKey: "AIzaSyDjo6SjdfLCNtNN4lT8aKORY7CIP-WJH9U",
+    authDomain: "portfofia.firebaseapp.com",
+    databaseURL: "https://portfofia-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "portfofia",
+    storageBucket: "portfofia.firebasestorage.app",
+    messagingSenderId: "633781124250",
+    appId: "1:633781124250:web:c6680357071539a254f323"
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  // Database reference
+  const db = firebase.database();
+  const chatRef = db.ref('messages');
+  
+  // Get chat form elements
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const chatMessages = document.getElementById('chat-messages');
+  
+  // Send new message
+  chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const message = chatInput.value.trim();
-    if (message) {
-        chatRef.push({
-            text: message,
-            timestamp: Date.now()
+    const messageText = chatInput.value.trim();
+  
+    if (messageText) {
+      const newMessage = {
+        text: messageText,
+        timestamp: Date.now()
+      };
+  
+      chatRef.push(newMessage)
+        .then(() => {
+          chatInput.value = '';
+          chatInput.focus();
+        })
+        .catch((error) => {
+          alert('Error sending message: ' + error.message);
         });
-        chatInput.value = '';
     }
-});
-
-// Listen for new messages
-chatRef.on('child_added', (snapshot) => {
+  });
+  
+  // Listen and display messages
+  chatRef.limitToLast(50).on('child_added', (snapshot) => {
     const data = snapshot.val();
     displayMessage(data.text);
-});
-
-// Display message
-function displayMessage(message) {
-    const div = document.createElement('div');
-    div.textContent = message;
-    div.style.marginBottom = '0.5rem';
-    div.style.padding = '0.5rem';
-    div.style.backgroundColor = '#f0f0f0';
-    div.style.borderRadius = '5px';
-    chatMessages.appendChild(div);
+  });
+  
+  // Display message in chat
+  function displayMessage(message) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('chat-message');
+    messageDiv.textContent = message;
+    chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+  }
